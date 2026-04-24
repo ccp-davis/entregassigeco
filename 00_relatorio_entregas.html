@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Relatório de Entrega dos Contratos - SIGECO</title>
+
+  <!-- Favicon: Logo EAPSOE -->
+  <link rel="icon" href="https://iili.io/B671E5N.md.png" />
+
+  <style>
+    :root{
+      --bg:#07111f;
+      --line:rgba(255,255,255,.10);
+      --text:#eef4ff;
+      --muted:#b8c5db;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(215,171,77,.18), transparent 24%),
+        radial-gradient(circle at top right, rgba(121,184,255,.12), transparent 26%),
+        linear-gradient(180deg,#07111f 0%, #07101d 45%, #050b14 100%);
+      min-height:100vh;
+    }
+    .wrap{width:min(1240px,calc(100% - 32px));margin:0 auto;padding:28px 0 42px}
+    .hero{border:1px solid var(--line);border-radius:28px;padding:30px;background:linear-gradient(180deg, rgba(12,27,49,.92), rgba(7,17,31,.92));box-shadow:var(--shadow)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:16px}
+    .brand img{width:84px;height:84px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35))}
+    .brand-text h1{margin:0;font-size:clamp(22px,3vw,38px)}
+    .brand-text p{margin:6px 0 0;color:var(--muted);font-size:14px}
+    .badge{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(215,171,77,.08);color:#ffcf6a;border:1px solid rgba(215,171,77,.35)}
+    .badge-dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(180deg,#ffcf6a,#d7ab4d)}
+    .hero-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-top:22px}
+    .showcase{border-radius:24px;padding:24px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(15,35,64,.82), rgba(10,22,39,.82))}
+
+    .stats{display:grid;gap:14px}
+    .stat{border-radius:22px;padding:18px;background:linear-gradient(180deg, rgba(16,40,74,.92), rgba(9,19,34,.92));border:1px solid var(--line)}
+    .stat .label{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+    .stat .value strong{font-size:44px}
+    .stat .desc{color:var(--muted);font-size:14px}
+
+    .section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:18px 0 12px;flex-wrap:wrap}
+    .section-title h3{margin:0;font-size:24px}
+    .section-title span{color:var(--muted);font-size:13px}
+
+    .panel{border-radius:26px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(16,40,74,.78), rgba(9,19,34,.84));box-shadow:var(--shadow);overflow:hidden}
+    .panel-head{padding:22px 24px 14px;border-bottom:1px solid var(--line)}
+    .panel-head h3{margin:0}
+    .panel-head p{margin:8px 0 0;color:var(--muted)}
+
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:18px 24px 24px}
+    .status-card{border-radius:22px;padding:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .status-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 11px;border-radius:999px;margin-bottom:14px;color:#fff}
+    .dot{width:8px;height:8px;border-radius:50%}
+
+    .tag-orange{background:rgba(255,165,0,.14);border:1px solid rgba(255,165,0,.18)}
+    .tag-orange .dot{background:#ff9b2b}
+    .tag-lightgreen{background:rgba(120,220,120,.08);border:1px solid rgba(120,220,120,.14)}
+    .tag-lightgreen .dot{background:#7ee08a}
+    .tag-green{background:rgba(28,184,115,.10);border:1px solid rgba(28,184,115,.18)}
+    .tag-green .dot{background:#27a85e}
+
+    .contract-list{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+    .contract-list li{padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:13px;color:var(--text)}
+
+    .tables{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:18px 24px 24px}
+    .table-card{border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.03);overflow:hidden}
+    .table-card header{padding:16px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}
+    .table-card header h4{margin:0}
+    .table-body{padding:16px 18px 18px}
+    .fiscal{margin-bottom:18px;border-bottom:1px dashed rgba(255,255,255,.10);padding-bottom:16px}
+    .fiscal h5{margin:0 0 8px;font-size:16px;color:#fff3cc}
+    .fiscal p{margin:0 0 10px;color:var(--muted);font-size:13px}
+    .chip-row{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{padding:7px 10px;border-radius:999px;background:rgba(215,171,77,.10);color:#ffe2a2;border:1px solid rgba(215,171,77,.20);font-size:13px}
+
+    .footer{margin-top:18px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(16,40,74,.74), rgba(9,19,34,.88));padding:18px 22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .footer img{width:78px;height:78px;object-fit:contain}
+    .footer small{color:var(--muted);line-height:1.55}
+
+    @media (max-width:980px){.hero-grid,.grid-3,.tables{grid-template-columns:1fr}.brand img,.footer img{width:72px;height:72px}}
+    @media (max-width:640px){.wrap{padding-top:10px}.hero{padding:18px}.brand-text h1{font-size:22px}.stat .value strong{font-size:34px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="topbar">
+        <div class="brand">
+          <!-- Cabeçalho: logo EAPSOE -->
+          <img src="https://iili.io/B671E5N.md.png" alt="Logo EAPSOE" />
+          <div class="brand-text">
+            <h1>RELATÓRIO DE ENTREGA DOS CONTRATOS - SIGECO</h1>
+            <p>Painel institucional, consolidando os status de entrega dos contratos, os totais gerais e a distribuição por fiscal.</p>
+          </div>
+        </div>
+        <div class="badge"><span class="badge-dot"></span> Atualizado com base no SIGECO <strong>Relatórios de Entrega de Contratos - SIGECO.xlsx</strong></div>
+      </div>
+
+      <div class="hero-grid" style="margin-top:22px">
+        <!-- Showcase removido conforme solicitado (bloco completo removido) -->
+        <aside class="stats" id="stats"></aside>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h3>Resumo das entregas</h3>
+      <span>Distribuição principal de status conforme a planilha</span>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h3>Classificação geral dos contratos</h3>
+        <p>Os blocos abaixo mostram os contratos agrupados por situação de entrega: apenas provisória, apenas definitiva, provisória e definitiva.</p>
+      </div>
+      <div class="grid-3" id="status-grid"></div>
+    </section>
+
+    <div class="section-title">
+      <h3>Entregas Definitivas restantes (por fiscais)</h3>
+      <span>Responsáveis pelos contratos que ainda aguardam entrega definitiva.</span>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h3>Relação por responsável</h3>
+        <p>Organização por fiscal para facilitar a conferência, priorização e acompanhamento das pendências.</p>
+      </div>
+      <div class="tables" id="tables"></div>
+    </section>
+
+    <footer class="footer">
+      <img src="https://iili.io/B67vQbs.md.png" alt="Logo PRPTI" />
+      <small>
+        <strong>UNEMAT</strong> — Universidade do Estado de Mato Grosso<br />
+        Carlos Alberto Reyes Maldonado<br />
+        PRPTI | Pró-Reitoria de Planejamento e Tecnologia da Informação
+      </small>
+    </footer>
+  </main>
+
+  <script>
+    // --- dados principais (mantidos) ---
+    const data = {
+      resumo: [
+        { label: "Entregas definitivas", value: 28, desc: "Contratos com entrega definitiva já registrada na consolidação geral." },
+        { label: "Restando definitivas", value: 18, desc: "Contratos com entrega provisória, mas que ainda possuem pendência de entrega definitiva." },
+        { label: "Entregas pendentes", value: 136, desc: "Contratos sem nenhuma entrega, exigindo maior atenção." },
+        { label: "Total de Contratos", value: 182, desc: "Soma apresentada no relatório consolidado deste painel." }
+      ],
+      status: [
+        { title: "Apenas provisória", tag: "tag-orange", contracts: ["138/2022","133/2022","085/2022","076/2023","020/2024","052/2024","005/2024","023/2024","147/2022","143/2022","151/2022","164/2022","148/2022","140/2022","120/2022","108/2022","009/2023","167/2022"], note: "Contratos que registram apenas entrega provisória." },
+        { title: "Apenas definitiva", tag: "tag-lightgreen", contracts: ["068/2022","068/2023","073/2023","086/2023","027/2023","071/2023","044/2024","100/2024","043/2024","026/2024","044/2025","009/2025","145/2022","063/2024","032/2023","036/2024","042/2024","054/2024","006/2024"], note: "Contratos com entrega definitiva já consolidada." },
+        { title: "Provisória e definitiva", tag: "tag-green", contracts: ["070/2024","165/2022","135/2022","104/2022","074/2022","040/2022","009/2024","085/2023","017/2024"], note: "Contratos que possuem ambas as entregas registradas." }
+      ],
+      // fiscal -> contratos faltando definitiva (mantive o array original e ordenei por quantidade)
+      fiscaisDefinitivas: [
+        { nome: "Rafael Misorelli Dantas", contratos: ["138/2022","052/2024","147/2022","143/2022","164/2022","148/2022","140/2022"] },
+        { nome: "Edivan Queiroz Pereira Regis", contratos: ["133/2022","120/2022"] },
+        { nome: "Flavio Alessandro Crispim", contratos: ["085/2022"] },
+        { nome: "Alex Sandro Teixeira de Souza", contratos: ["076/2023"] },
+        { nome: "Marcos Lázaro Guimarães", contratos: ["020/2024","005/2024"] },
+        { nome: "Julio Cesar Beltrame Benatti", contratos: ["023/2024"] },
+        { nome: "Alexandre Volkman Ultramari", contratos: ["151/2022"] },
+        { nome: "Gicela Teresinha Nicoletti", contratos: ["108/2022"] },
+        { nome: "Douglas Constantino Gozzo", contratos: ["009/2023"] },
+        { nome: "Danilo Rodrigo Possati", contratos: ["167/2022"] }
+      ]
+    };
+
+    // Ordena fiscaisDefinitivas por quantidade (mais -> menos) conforme solicitação anterior
+    data.fiscaisDefinitivas.sort((a,b)=> b.contratos.length - a.contratos.length);
+
+    // --- Reconstrução correta da seção "SEM ENTREGAS" a partir dos dados lidos da planilha ---
+    const semEntregasHeaders = [
+      "Rafael Misorelli Dantas","Irinaldo Silva Penha","Marcelo Berigo","Edivan Queiroz Pereira Regis",
+      "Daniel Junior Tirloni","Vilson Rodrigues da Silva","Mauricio Fernando Fulgêncio","Alex Sandro Teixeira de Souza",
+      "Julio Cesar Beltrame Benatti","Roberto Vasconcelos Pinheiro","Alexandre Volkman Ultramari","Marcelo Pereira Justino",
+      "Marcos Lázaro Guimarães","Alessandro Costa Ribeiro","Erick Duclert Stoeblen","Leandro Dalpiaz",
+      "Flavio Alessandro Crispim","Gilvan Matheus Sales de Souza","Leticia de Castro e Souza","Éder Correia Salomão",
+      "Douglas Constantino Gozzo","Andre Ricardo Cajazeira","Maicon José Hiellesheim","Jose Wilson Pires Carvalho",
+      "Reinaldo Norberto da Silva","Eder Geraldo de Oliveira","Edneia Aparecida Souza Andrade Santos","Ademir Cardoso da Silva",
+      "Alfeu Bett Manfrim"
+    ];
+
+    const semEntregasRows = [
+      ["134/2022","152/2022","159/2022","146/2022","163/2022","158/2022","161/2022","149/2022","141/2022","139/2022","137/2022","166/2022","127/2022","115/2022","102/2022","087/2022","032/2022","031/2022","072/2022","030/2022","029/2023","049/2023","075/2023","045/2024","037/2024","059/2024","064/2024","002/2026","010/2025"],
+      ["131/2022", null, null, "130/2022", null, null, null, "142/2022", "023/2022", "004/2022", "073/2022", null, "117/2022", null, null, null, "069/2023", null, null, null, "030/2023", null, "008/2025", "046/2024", "018/2024", null, null, null, null],
+      ["118/2022", null, null, "128/2022", null, null, null, "090/2022", "136/2022", null, "041/2022", null, "049/2025", null, null, null, "056/2024", null, null, null, null, null, null, "011/2025", null, null, null, null],
+      ["116/2022", null, null, "105/2022", null, null, null, "039/2022", null, null, "027/2022", null, "048/2025", null, null, null, "047/2025", null, null, null, null, null, null, null, null, null, null, null, null],
+      ["089/2022", null, null, "049/2022", null, null, null, "003/2026", null, null, "041/2024", null, "052/2025", null, null, null, "051/2025", null, null, null, null, null, null, null, "011/2025", null, null, null, null],
+      ["076/2022", null, null, "067/2023", null, null, null, "021/2022", null, null, "097/2024", null, "071/2022", null, null, null, "013/2025", null, null, null, null, null, null, null, null, null, null, null, null],
+      ["053/2022", null, null, "013/2022", null, null, null, "006/2022", null, null, "021/2025", null, "044/2022", null, null, null, "014/2025", null, null, null, null, null, null, null, null, null, null, null, null],
+      ["029/2025", null, null, "007/2024", null, null, null, "079/2023", null, null, null, null, "033/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["002/2022", null, null, "010/2024", null, null, null, "081/2023", null, null, null, null, "099/2023", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["031/2025", null, null, "043/2025", null, null, null, "059/2023", null, null, null, null, "082/2023", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["056/2023", null, null, "023/2025", null, null, null, "050/2023", null, null, null, null, "084/2023", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["087/2023", null, null, "017/2025", null, null, null, "047/2023", null, null, null, null, "038/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["058/2025", null, null, "004/2025", null, null, null, "013/2023", null, null, null, null, "050/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["150/2022", null, null, null, null, null, null, "088/2023", null, null, null, null, "034/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["040/2023", null, null, null, null, null, null, "034/2022", null, null, null, null, "041/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["094/2022", null, null, null, null, null, null, "015/2024", null, null, null, null, "057/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["059/2025", null, null, null, null, null, null, "080/2023", null, null, null, null, "033/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["034/2025", null, null, null, null, null, null, "063/2023", null, null, null, null, "008/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["069/2024", null, null, null, null, null, null, "078/2023", null, null, null, null, "051/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["073/2024", null, null, null, null, null, null, "038/2024", null, null, null, null, "028/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["021/2024", null, null, null, null, null, null, "065/2024", null, null, null, null, "086/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["001/2024", null, null, null, null, null, null, "022/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["046/2025", null, null, null, null, null, null, "037/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["065/2025", null, null, null, null, null, null, "019/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["017/2026", null, null, null, null, null, null, "098/2024", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["007/2025", null, null, null, null, null, null, "119/2022", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["003/2025", null, null, null, null, null, null, "053/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["002/2025", null, null, null, null, null, null, "005/2025", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
+      ["011/2023", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+    ];
+
+    const fiscaisSemEntrega = semEntregasHeaders.map((nome, colIdx) => {
+      const contratos = [];
+      for (const row of semEntregasRows) {
+        const v = row[colIdx];
+        if (v && String(v).toUpperCase() !== 'NAN') contratos.push(v);
+      }
+      return { nome, contratos };
+    });
+
+    // --- Render UI ---
+    const statsEl = document.getElementById('stats');
+    statsEl.innerHTML = data.resumo.map(item => `
+      <article class="stat">
+        <div class="label">${item.label}</div>
+        <div class="value"><strong>${item.value}</strong></div>
+        <p class="desc">${item.desc}</p>
+      </article>
+    `).join('');
+
+    const statusGrid = document.getElementById('status-grid');
+    statusGrid.innerHTML = data.status.map(block => `
+      <article class="status-card">
+        <div class="status-tag ${block.tag}"><span class="dot"></span>${block.title}</div>
+        <h4>${block.contracts.length} contratos</h4>
+        <ul class="contract-list">${block.contracts.map(c=>`<li>${c}</li>`).join('')}</ul>
+        <div class="mini-note">${block.note}</div>
+      </article>
+    `).join('');
+
+    const tablesEl = document.getElementById('tables');
+
+    const renderFiscalBlock = (title, items, subtitle) => `
+      <section class="table-card">
+        <header><h4>${title}</h4><p>${subtitle}</p></header>
+        <div class="table-body">
+          ${items.map(f=>{
+            return `<div class="fiscal">
+                      <h5>${f.nome}</h5>
+                      <p>${f.contratos.length} contrato(s)</p>
+                      <div class="chip-row">${f.contratos.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+                    </div>`;
+          }).join('')}
+        </div>
+      </section>`;
+
+    tablesEl.innerHTML = renderFiscalBlock(
+      "Entregas Definitivas restantes (por fiscais)",
+      data.fiscaisDefinitivas,
+      "Responsáveis pelos contratos que ainda aguardam entrega definitiva."
+    ) + renderFiscalBlock(
+      "Sem entregas",
+      fiscaisSemEntrega,
+      "Agrupamento dos contratos sem nenhuma entrega registrada."
+    );
+  </script>
+</body>
+</html>
